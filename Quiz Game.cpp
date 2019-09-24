@@ -1,8 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-using namespace std;
+#include <string>
 
+using namespace std;
 
 class Question{
 	public:
@@ -22,8 +23,38 @@ class Question{
 };
 
 // This function reads the text file, makes the questions and its choices into objects, then addes them to the vector
-void loadQuestions(int &lastID) {
+void loadQuestions(int &lastID, vector<Question> &allQuestions, string filename) {
+	string temp, question, correctC, c2, c3, c4;
+	int line = 1;
 
+	ifstream QFile;
+	QFile.open(filename);
+
+	while (getline(QFile, temp)) {
+		switch (line) {
+			case 1:
+				question = temp;
+				break;
+			case 2:
+				correctC = temp;
+				break;
+			case 3:
+				c2 = temp;
+				break;
+			case 4:
+				c3 = temp;
+				break;
+			case 5:
+				c4 = temp;
+				lastID++;
+				Question newQuestion(question, correctC, c2, c3,c4, lastID);
+				allQuestions.push_back(newQuestion);
+				line = 0;
+				break;
+		}
+		line++;
+	}
+	QFile.close();
 }
 
 void adminMenu() {
@@ -37,9 +68,10 @@ void uodateName() {
 
 int main()
 {
-	vector<Question> allQuestions; //vector that includes objects that are questions
+	vector<Question> allQuestions; //vector that includes objects that are the questions
 	int lastID = 0; //to make it ascending order and avoid repetition
-	loadQuestions(lastID);
+	string initFileName = "exam_questions.txt"; //This is the original file that has the questions
+	loadQuestions(lastID, allQuestions, initFileName);
 
 	return 0;
 }
