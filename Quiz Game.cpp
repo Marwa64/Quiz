@@ -7,9 +7,25 @@ using namespace std;
 
 class Question{
 	public:
+		//This is just the constructor that takes values by val and assigns them to private variables in the class
 		Question(string question, string correctChoice, string choice2, string choice3, string choice4, int ID)
 		: _question(question), _correctChoice(correctChoice), _choice2(choice2), _choice3(choice3), _choice4(choice4), _ID(ID)
 		{
+
+		}
+
+		//This function takes a parameter and compares it to the correct solution of the question
+		bool CheckAnswer(string answer) {
+			if (answer == _correctChoice) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		//This function prints out the question and choices
+		void PrintQuestion() {
 
 		}
 
