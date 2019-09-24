@@ -26,7 +26,8 @@ class Question{
 
 		//This function prints out the question and choices
 		void PrintQuestion() {
-
+			cout << _question << endl;
+			cout << "   " << _correctChoice << "   " << _choice2 << "   " <<  _choice3 << "   " << _choice4 << endl;
 		}
 
 	private:
@@ -88,7 +89,6 @@ int main()
 	int lastID = 0; //to make it ascending order and avoid repetition
 	string initFileName = "exam_questions.txt"; //This is the original file that has the questions
 	loadQuestions(lastID, allQuestions, initFileName);
-
 	return 0;
 }
 
