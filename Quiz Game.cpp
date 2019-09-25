@@ -134,6 +134,25 @@ void ViewAllQuestions(vector<Question> allQuestions) {
 	}
 }
 
+// This function will add a new question
+void AddQuestion(int &lastID, vector<Question> &allQuestions) {
+	string question, c1, c2, c3, c4;
+	cout << endl << "Enter the question: ";
+	cin.ignore();
+	getline(cin, question);
+	cout << "The correct choice: ";
+	getline(cin, c1);
+	cout << "Second choice: ";
+	getline(cin, c2);
+	cout << "Third choice: ";
+	getline(cin, c3);
+	cout << "Fourth choice: ";
+	getline(cin, c4);
+	lastID++;
+	Question newQuestion(question, c1, c2, c3, c4, lastID);
+	allQuestions.push_back(newQuestion);
+}
+
 void adminMenu(int &lastID, vector<Question> &allQuestions) {
 	int choice;
 	string nameEntered, fileName;
@@ -147,6 +166,7 @@ void adminMenu(int &lastID, vector<Question> &allQuestions) {
 			ViewAllQuestions(allQuestions);
 			break;
 		case 2:
+			AddQuestion(lastID, allQuestions);
 			break;
 		case 3:
 			cout << "Enter the name of the file: ";
