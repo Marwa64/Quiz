@@ -134,8 +134,9 @@ void ViewAllQuestions(vector<Question> allQuestions) {
 	}
 }
 
-void adminMenu(vector<Question> &allQuestions) {
+void adminMenu(int &lastID, vector<Question> &allQuestions) {
 	int choice;
+	string nameEntered, fileName;
 	cout << "Welcome to the administration menu, please choose from the following options:" << endl;
 	cout << "[1] View all questions" << endl << "[2] Add new question" << endl;
 	cout << "[3] Load questions from file" << endl << "[4] Go back to main menu" << endl;
@@ -148,6 +149,10 @@ void adminMenu(vector<Question> &allQuestions) {
 		case 2:
 			break;
 		case 3:
+			cout << "Enter the name of the file: ";
+			cin >> nameEntered;
+			fileName = nameEntered + ".txt";
+			loadQuestions(lastID, allQuestions, fileName);
 			break;
 		case 4:
 			break;
@@ -167,7 +172,7 @@ int main()
 
 	loadQuestions(lastID, allQuestions, initFileName);
 
-	adminMenu(allQuestions);
+	adminMenu(lastID, allQuestions);
 
 	return 0;
 }
