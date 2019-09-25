@@ -140,6 +140,7 @@ void DeleteQuestion(vector<Question> &allQuestions) {
 	cout << "Enter the question number: ";
 	cin >> ID;
 	allQuestions.erase(allQuestions.begin() + ID - 1); // begin() gets the 1st value in the vector 
+	cout << endl << "Question " << ID << " has been deleted" << endl;;
 }
 
 // This function will add a new question to the vector
