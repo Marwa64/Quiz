@@ -134,7 +134,15 @@ void ViewAllQuestions(vector<Question> allQuestions) {
 	}
 }
 
-// This function will add a new question
+// This function will delete a question from the vector
+void DeleteQuestion(vector<Question> &allQuestions) {
+	int ID;
+	cout << "Enter the question number: ";
+	cin >> ID;
+	allQuestions.erase(allQuestions.begin() + ID - 1); // begin() gets the 1st value in the vector 
+}
+
+// This function will add a new question to the vector
 void AddQuestion(int &lastID, vector<Question> &allQuestions) {
 	string question, c1, c2, c3, c4;
 	cout << endl << "Enter the question: ";
@@ -156,6 +164,7 @@ void AddQuestion(int &lastID, vector<Question> &allQuestions) {
 void adminMenu(int &lastID, vector<Question> &allQuestions) {
 	int choice;
 	string nameEntered, fileName;
+	char input;
 	cout << "Welcome to the administration menu, please choose from the following options:" << endl;
 	cout << "[1] View all questions" << endl << "[2] Add new question" << endl;
 	cout << "[3] Load questions from file" << endl << "[4] Go back to main menu" << endl;
@@ -164,6 +173,21 @@ void adminMenu(int &lastID, vector<Question> &allQuestions) {
 	switch (choice) {
 		case 1:
 			ViewAllQuestions(allQuestions);
+			cout << endl << " ---------------------------------------";
+			cout << endl << "Enter d to delete a question and b to go back to the main menu: ";
+			cin >> input;
+			switch (input) {
+				case 'D':
+				case 'd':
+					DeleteQuestion(allQuestions);
+					cout << " ---------------------------------------" << endl;
+					ViewAllQuestions(allQuestions);
+					break;
+
+				case 'B':
+				case 'b':
+					break;
+			}
 			break;
 		case 2:
 			AddQuestion(lastID, allQuestions);
@@ -196,4 +220,3 @@ int main()
 
 	return 0;
 }
-
