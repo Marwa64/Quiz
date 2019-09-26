@@ -98,13 +98,11 @@ void loadQuestions(int& lastID, vector<Question>& allQuestions, string filename)
 	QFile.close();
 }
 
-// Prints a question with the choices in a random order
+// Prints a question with the choices in a random order, can be used both to view all questions and in game
 void PrintQuestion(int ID, vector<Question> allQuestions) {
 
 	bool done, choices[4];
 	int num;
-
-	srand(time(NULL));
 
 	cout << endl << "[" << allQuestions[ID].GetID() << "] ";
 	allQuestions[ID].PrintQuestion();
@@ -222,6 +220,8 @@ void updateName() {
 
 int main()
 {
+	srand(time(NULL)); 
+
 	vector<Question> allQuestions;	// vector that includes objects that are the questions
 	int lastID = 0;		// To make it ascending order and avoid repetition
 	string initFileName = "exam_questions.txt";		// This is the initial file that has the questions
