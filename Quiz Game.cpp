@@ -145,7 +145,7 @@ void DeleteQuestion(vector<Question>& allQuestions) {
 }
 
 // This function will add a new question to the vector
-void AddQuestion(int& lastID, vector<Question>& allQuestions) {
+void AddQuestion(int& lastID, vector<Question>& allQuestions, string fileName) {
 	string question, c1, c2, c3, c4;
 	char input;
 	do {
@@ -165,7 +165,7 @@ void AddQuestion(int& lastID, vector<Question>& allQuestions) {
 		allQuestions.push_back(newQuestion);
 
 		ofstream questionFile; // Adds the question to the file
-		questionFile.open("exam_questions.txt", fstream::app);
+		questionFile.open(fileName, fstream::app);
 		questionFile << endl << question << endl;
 		questionFile << c1 << endl;
 		questionFile << c2 << endl;
@@ -179,11 +179,11 @@ void AddQuestion(int& lastID, vector<Question>& allQuestions) {
 
 }
 
-void adminMenu(int &lastID, vector<Question> &allQuestions) {
+void adminMenu(int &lastID, vector<Question> &allQuestions, string &fileName) {
 	int choice;
 	bool game = false; // I want to use the PrintQuestion function both in game and when viewing all questions.
 			   // This variable is to differentiate between both states as there is a slight difference
-	string nameEntered, fileName;
+	string nameEntered;
 	char erase, erase2;
 	cout << "Welcome to the administration menu, please choose from the following options:" << endl;
 	cout << "[1] View all questions" << endl << "[2] Add new question" << endl;
@@ -212,13 +212,15 @@ void adminMenu(int &lastID, vector<Question> &allQuestions) {
 			break;
 
 		case 2:
-			AddQuestion(lastID, allQuestions);
+			AddQuestion(lastID, allQuestions, fileName);
 			break;
 
 		case 3:
 			cout << "Enter the name of the file: ";
 			cin >> nameEntered;
 			fileName = nameEntered + ".txt";
+			allQuestions.clear(); // Erase all questions in vector to add the new question from the new file
+			lastID = 0; // Resetting the IDs
 			loadQuestions(lastID, allQuestions, fileName);
 			break;
 
@@ -240,9 +242,9 @@ int main()
 
 	vector<Question> allQuestions;	// vector that includes objects that are the questions
 	int lastID = 0;		// To make it ascending order and avoid repetition
-	string initFileName = "exam_questions.txt";		// This is the initial file that has the questions
+	string fileName = "exam_questions.txt";		// This is the file that has the questions
 
-	loadQuestions(lastID, allQuestions, initFileName);
+	loadQuestions(lastID, allQuestions, fileName);
 
 	// Main menu
 	int input;
@@ -255,7 +257,7 @@ int main()
 		system("CLS"); // This is to clear the console
 		switch (input) {
 		case 1:
-			adminMenu(lastID, allQuestions);
+			adminMenu(lastID, allQuestions, fileName);
 			break;
 
 		case 2:
