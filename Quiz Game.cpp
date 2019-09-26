@@ -98,40 +98,38 @@ void loadQuestions(int& lastID, vector<Question>& allQuestions, string filename)
 	QFile.close();
 }
 
-// Prints all the questions with the choices in a random order
-void ViewAllQuestions(vector<Question> allQuestions) {
+// Prints a question with the choices in a random order
+void PrintQuestion(int ID, vector<Question> allQuestions) {
 
 	bool done, choices[4];
 	int num;
 
-	for (unsigned int i = 0; i < allQuestions.size(); i++) {
-		srand(time(NULL));
+	srand(time(NULL));
 
-		cout << endl << "[" << allQuestions[i].GetID() << "] ";
-		allQuestions[i].PrintQuestion();
+	cout << endl << "[" << allQuestions[ID].GetID() << "] ";
+	allQuestions[ID].PrintQuestion();
 
-		done = false;
-		for (int x = 0; x < 4; x++) {
-			choices[x] = false;
-		}
-
-		while (done == false) {
-			num = rand() % 4 + 1;
-			if (choices[num - 1] == false) {
-				allQuestions[i].PrintChoices(num);
-				cout << "   ";
-				choices[num - 1] = true; // minus 1 here because of the index
-			}
-			for (int j = 0; j < 4; j++) {
-				done = true;
-				if (choices[j] == false) {
-					done = false;
-					break;
-				}
-			}
-		}
-		cout << endl;
+	done = false;
+	for (int x = 0; x < 4; x++) {
+		choices[x] = false;
 	}
+
+	while (done == false) {
+		num = rand() % 4 + 1;
+		if (choices[num - 1] == false) {
+			allQuestions[ID].PrintChoices(num);
+			cout << "   ";
+			choices[num - 1] = true; // minus 1 here because of the index
+		}
+		for (int j = 0; j < 4; j++) {
+			done = true;
+			if (choices[j] == false) {
+				done = false;
+				break;
+			}
+		}
+	}
+	cout << endl;
 }
 
 // This function will delete a question from the vector
@@ -160,9 +158,18 @@ void AddQuestion(int& lastID, vector<Question>& allQuestions) {
 	lastID++;
 	Question newQuestion(question, c1, c2, c3, c4, lastID);
 	allQuestions.push_back(newQuestion);
+
+	ofstream questionFile; // Adds the question to the file
+	questionFile.open("exam_questions.txt", fstream::app);
+	questionFile << endl << question << endl;
+	questionFile << c1 << endl;
+	questionFile << c2 << endl;
+	questionFile << c3 << endl;
+	questionFile << c4;
+	questionFile.close();
 }
 
-void adminMenu(int& lastID, vector<Question>& allQuestions) {
+void adminMenu(int &lastID, vector<Question> &allQuestions) {
 	int choice;
 	string nameEntered, fileName;
 	char input;
@@ -173,7 +180,9 @@ void adminMenu(int& lastID, vector<Question>& allQuestions) {
 	cin >> choice;
 	switch (choice) {
 	case 1:
-		ViewAllQuestions(allQuestions);
+		for (unsigned int i = 0; i < allQuestions.size(); i++) {
+			PrintQuestion(i, allQuestions);
+		}
 		cout << endl << " ---------------------------------------";
 		cout << endl << "Enter d to delete a question and b to go back to the main menu: ";
 		cin >> input;
@@ -182,7 +191,9 @@ void adminMenu(int& lastID, vector<Question>& allQuestions) {
 		case 'd':
 			DeleteQuestion(allQuestions);
 			cout << " ---------------------------------------" << endl;
-			ViewAllQuestions(allQuestions);
+			for (unsigned int i = 0; i < allQuestions.size(); i++) {
+				PrintQuestion(i, allQuestions);
+			}
 			break;
 
 		case 'B':
