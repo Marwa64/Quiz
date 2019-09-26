@@ -99,7 +99,7 @@ void loadQuestions(int& lastID, vector<Question>& allQuestions, string filename)
 }
 
 // Prints a question with the choices in a random order, can be used both to view all questions and in game
-void PrintQuestion(int ID, vector<Question> allQuestions) {
+void PrintQuestion(int ID, vector<Question> allQuestions, bool game) {
 
 	bool done, choices[4];
 	int num;
@@ -115,6 +115,11 @@ void PrintQuestion(int ID, vector<Question> allQuestions) {
 	while (done == false) {
 		num = rand() % 4 + 1;
 		if (choices[num - 1] == false) {
+			if (game == false) {
+				if (num == 1) {
+					cout << "*";  // This is to highlight the correct choice
+				}
+			}
 			allQuestions[ID].PrintChoices(num);
 			cout << "   ";
 			choices[num - 1] = true; // minus 1 here because of the index
@@ -169,6 +174,8 @@ void AddQuestion(int& lastID, vector<Question>& allQuestions) {
 
 void adminMenu(int &lastID, vector<Question> &allQuestions) {
 	int choice;
+	bool game = false; // I want to use the PrintQuestion function both in game and when viewing all questions.
+			   // This variable is to differentiate between both states as there is a light difference
 	string nameEntered, fileName;
 	char input;
 	cout << "Welcome to the administration menu, please choose from the following options:" << endl;
@@ -179,7 +186,7 @@ void adminMenu(int &lastID, vector<Question> &allQuestions) {
 	switch (choice) {
 	case 1:
 		for (unsigned int i = 0; i < allQuestions.size(); i++) {
-			PrintQuestion(i, allQuestions);
+			PrintQuestion(i, allQuestions, game);
 		}
 		cout << endl << " ---------------------------------------";
 		cout << endl << "Enter d to delete a question and b to go back to the main menu: ";
@@ -190,7 +197,7 @@ void adminMenu(int &lastID, vector<Question> &allQuestions) {
 			DeleteQuestion(allQuestions);
 			cout << " ---------------------------------------" << endl;
 			for (unsigned int i = 0; i < allQuestions.size(); i++) {
-				PrintQuestion(i, allQuestions);
+				PrintQuestion(i, allQuestions, game);
 			}
 			break;
 
