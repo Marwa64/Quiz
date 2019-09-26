@@ -147,77 +147,86 @@ void DeleteQuestion(vector<Question>& allQuestions) {
 // This function will add a new question to the vector
 void AddQuestion(int& lastID, vector<Question>& allQuestions) {
 	string question, c1, c2, c3, c4;
-	cout << endl << "Enter the question: ";
-	cin.ignore();
-	getline(cin, question);
-	cout << "The correct choice: ";
-	getline(cin, c1);
-	cout << "Second choice: ";
-	getline(cin, c2);
-	cout << "Third choice: ";
-	getline(cin, c3);
-	cout << "Fourth choice: ";
-	getline(cin, c4);
-	lastID++;
-	Question newQuestion(question, c1, c2, c3, c4, lastID);
-	allQuestions.push_back(newQuestion);
+	char input;
+	do {
+		cout << endl << "Enter the question: ";
+		cin.ignore();
+		getline(cin, question);
+		cout << "The correct choice: ";
+		getline(cin, c1);
+		cout << "Second choice: ";
+		getline(cin, c2);
+		cout << "Third choice: ";
+		getline(cin, c3);
+		cout << "Fourth choice: ";
+		getline(cin, c4);
+		lastID++;
+		Question newQuestion(question, c1, c2, c3, c4, lastID);
+		allQuestions.push_back(newQuestion);
 
-	ofstream questionFile; // Adds the question to the file
-	questionFile.open("exam_questions.txt", fstream::app);
-	questionFile << endl << question << endl;
-	questionFile << c1 << endl;
-	questionFile << c2 << endl;
-	questionFile << c3 << endl;
-	questionFile << c4;
-	questionFile.close();
+		ofstream questionFile; // Adds the question to the file
+		questionFile.open("exam_questions.txt", fstream::app);
+		questionFile << endl << question << endl;
+		questionFile << c1 << endl;
+		questionFile << c2 << endl;
+		questionFile << c3 << endl;
+		questionFile << c4;
+		questionFile.close();
+
+		cout << "Enter q to add another question or any other key to go back to the menu: ";
+		cin >> input;
+	} while (input == 'q' || input == 'Q');
+
 }
 
 void adminMenu(int &lastID, vector<Question> &allQuestions) {
 	int choice;
 	bool game = false; // I want to use the PrintQuestion function both in game and when viewing all questions.
-			   // This variable is to differentiate between both states as there is a light difference
+			   // This variable is to differentiate between both states as there is a slight difference
 	string nameEntered, fileName;
-	char input;
+	char erase, erase2;
 	cout << "Welcome to the administration menu, please choose from the following options:" << endl;
 	cout << "[1] View all questions" << endl << "[2] Add new question" << endl;
 	cout << "[3] Load questions from file" << endl << "[4] Go back to main menu" << endl;
 	cout << "Your choice: ";
 	cin >> choice;
 	switch (choice) {
-	case 1:
-		for (unsigned int i = 0; i < allQuestions.size(); i++) {
-			PrintQuestion(i, allQuestions, game);
-		}
-		cout << endl << " ---------------------------------------";
-		cout << endl << "Enter d to delete a question and b to go back to the main menu: ";
-		cin >> input;
-		switch (input) {
-		case 'D':
-		case 'd':
-			DeleteQuestion(allQuestions);
-			cout << " ---------------------------------------" << endl;
+		case 1:
 			for (unsigned int i = 0; i < allQuestions.size(); i++) {
 				PrintQuestion(i, allQuestions, game);
 			}
+			cout << endl << " ---------------------------------------";
+			cout << endl << "Enter d to delete a question or any other key to go back to the main menu: ";
+			cin >> erase;
+			if(erase == 'd' || erase == 'D'){
+				do {
+					DeleteQuestion(allQuestions);
+					cout << " ---------------------------------------" << endl;
+					for (unsigned int i = 0; i < allQuestions.size(); i++) {
+						PrintQuestion(i, allQuestions, game);
+					}
+					cout << endl << "Enter d to delete another question or any key to go back to the main menu: ";
+					cin >> erase2;
+				} while (erase2 == 'd' || erase2 == 'D');
+			}
 			break;
 
-		case 'B':
-		case 'b':
+		case 2:
+			AddQuestion(lastID, allQuestions);
 			break;
-		}
-		break;
-	case 2:
-		AddQuestion(lastID, allQuestions);
-		break;
-	case 3:
-		cout << "Enter the name of the file: ";
-		cin >> nameEntered;
-		fileName = nameEntered + ".txt";
-		loadQuestions(lastID, allQuestions, fileName);
-		break;
-	case 4:
-		break;
+
+		case 3:
+			cout << "Enter the name of the file: ";
+			cin >> nameEntered;
+			fileName = nameEntered + ".txt";
+			loadQuestions(lastID, allQuestions, fileName);
+			break;
+
+		case 4:
+			break;
 	}
+
+	system("CLS"); // This is to clear the console
 }
 
 void updateName() {
@@ -235,7 +244,29 @@ int main()
 
 	loadQuestions(lastID, allQuestions, initFileName);
 
-	adminMenu(lastID, allQuestions);
+	// Main menu
+	int input;
+	do {
+		cout << "Welcome USER, please choose from the following options:" << endl;
+		cout << "[1] Go to administration menu" << endl << "[2] Update your name" << endl << "[3] Start a new quiz" << endl;
+		cout << "[4] Display your scores statistics" << endl << "[5] Display all your scores" << endl << "[6] Exit" << endl;
+		cout << "You choice: ";
+		cin >> input;
+		system("CLS"); // This is to clear the console
+		switch (input) {
+		case 1:
+			adminMenu(lastID, allQuestions);
+			break;
 
+		case 2:
+			break;
+
+		case 3:
+			break;
+
+		case 4: 
+			break;
+		}
+	} while (input != 6);
 	return 0;
 }
