@@ -1,0 +1,10 @@
+﻿  Quiz Game V.2.cpp
+D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(924,22): warning C4018:  '<': signed/unsigned mismatch
+D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(940,22): warning C4018:  '<': signed/unsigned mismatch
+D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(967,20): warning C4018:  '<': signed/unsigned mismatch
+D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(971,20): warning C4018:  '<': signed/unsigned mismatch
+D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(1109,21): warning C4018:  '<': signed/unsigned mismatch
+D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(1118,21): warning C4018:  '<': signed/unsigned mismatch
+D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(1141,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(1141,12): warning C4244: D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Quiz Game V.2\Quiz Game V.2.cpp(108) : warning C4715: 'MCQuestion::getChoices': not all control paths return a value
+  Quiz Game V.2.vcxproj -> D:\Marwa\1. University Folder\Programming 2\Quiz Game V.2\Debug\Quiz Game V.2.exe
