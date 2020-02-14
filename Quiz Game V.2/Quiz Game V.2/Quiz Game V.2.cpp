@@ -1,3 +1,6 @@
+# The default username and password for the admin account is "admin"
+# The defauly usernmae and password for the player account is "player"
+
 #include <iostream>
 #include <fstream>
 #include <vector>
