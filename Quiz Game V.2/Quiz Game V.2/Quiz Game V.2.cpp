@@ -1,5 +1,5 @@
-# The default username and password for the admin account is "admin"
-# The default username and password for the player account is "player"
+// The default username and password for the admin account is "admin"
+// The default username and password for the player account is "player"
 
 #include <iostream>
 #include <fstream>
